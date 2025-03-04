@@ -1,0 +1,66 @@
+<body>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        العودة
+    </a>
+
+    <h1 class="applications-title">التقديمات</h1>
+
+    <div class="applications-container">
+        <div class="application-card">
+            <i class="fas fa-users application-icon"></i>
+            <h2 class="application-title">التقديم للعائلة</h2>
+            <p class="application-description">
+                انضم إلى عائلتنا وكن جزءاً من مجتمعنا المميز. نرحب بجميع الأعضاء الجدد الذين يشاركوننا قيمنا ومبادئنا.
+            </p>
+            <a href="family-app.html" class="apply-button" id="familyAppButton">تقديم طلب</a>
+            <p class="applications-status" id="familyAppStatus"></p>
+        </div>
+
+        <div class="application-card">
+            <i class="fas fa-crown application-icon"></i>
+            <h2 class="application-title">التقديم للإدارة</h2>
+            <p class="application-description">
+                هل لديك خبرة في الإدارة وترغب في المساهمة في تطوير مجتمعنا؟ قدم طلبك للانضمام إلى فريق الإدارة.
+            </p>
+            <a class="apply-button disabled" id="staffAppButton">تقديم طلب</a>
+            <p class="applications-status" id="staffAppStatus">التقديم مغلق حالياً</p>
+        </div>
+    </div>
+
+    <script>
+        // تعريف متغيرات حالة التقديم
+        const applicationsStatus = {
+            family: true, // false = مغلق، true = مفتوح
+            staff: false   // false = مغلق، true = مفتوح
+        };
+
+        // الحصول على العناصر
+        const familyButton = document.getElementById('familyAppButton');
+        const staffButton = document.getElementById('staffAppButton');
+        const familyStatus = document.getElementById('familyAppStatus');
+        const staffStatus = document.getElementById('staffAppStatus');
+
+        // دالة تحديث حالة الأزرار
+        function updateApplicationStatus() {
+            if (!applicationsStatus.family) {
+                familyButton.classList.add('disabled');
+                familyButton.removeAttribute('href');
+                familyStatus.textContent = "التقديم مغلق حالياً";
+            }
+
+            if (!applicationsStatus.staff) {
+                staffButton.classList.add('disabled');
+                staffButton.removeAttribute('href');
+                staffStatus.textContent = "التقديم مغلق حالياً";
+            }
+        }
+
+        // منع الانتقال المباشر إلى صفحات التقديم
+        document.addEventListener('DOMContentLoaded', function() {
+            updateApplicationStatus();
+        });
+    </script>
+
+
+</body>
