@@ -1,0 +1,204 @@
+<html lang="ar" dir="rtl"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التقديمات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+           
+        }
+
+        body {
+            background-image: url('banner.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 20px 20px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #686761;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            border-color: rgba(95, 94, 89, 0.5);
+        }
+
+        .applications-title {
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .applications-container {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1400px;
+        }
+
+        .application-card {
+            background-color: rgba(95, 95, 95, 0.8);
+            border-radius: 25px;
+            padding: 50px;
+            width: 450px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .application-icon {
+            font-size: 4rem;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .application-title {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .application-description {
+            color: #cccccc;
+            margin-bottom: 35px;
+            line-height: 1.8;
+            font-size: 1.2rem;
+        }
+
+        .apply-button {
+            background-color: #9e9e99;
+            color: black;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        .apply-button:hover {
+            background-color: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .apply-button.disabled {
+            background-color: #9e9e99;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .applications-status {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://muchado-famliy.github.io/muchado-Web/" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        
+    </a>
+
+    <h1 class="applications-title">التقديمات</h1>
+
+    <div class="applications-container">
+        <div class="application-card">
+            <i class="fas fa-door-open application-icon"></i>
+            <h2 class="application-title">التقديم للعائلة</h2>
+            <p class="application-description">
+                انضم إلى عائلتنا وساهم في تطوير وتقدم العائلة الى مستويات اعلى مع بعض.
+            </p>
+            <a href="https://muchado-famliy.github.io/applying.gg/" class="apply-button" id="familyAppButton"> تقديم عضو</a>
+            <p class="applications-status" id="familyAppStatus"></p>
+        </div>
+
+        <div class="application-card">
+            <i class="	far fa-paper-plane application-icon"></i>
+            <h2 class="application-title"> تقديم اقتراح </h2>
+            <p class="application-description">
+                هل لديك .اقتراح للمساهمة في تطوير العائله؟
+            </p>
+            <p class="applications-status" id="staffAppStatus"> قريباً</p>
+            <a class="apply-button disabled" id="staffAppButton">تقديم اقتراح</a>
+        </div>
+    </div>
+
+    <script>
+        // تعريف متغيرات حالة التقديم
+        const applicationsStatus = {
+            family: true, // false = مغلق، true = مفتوح
+            staff: false   // false = مغلق، true = مفتوح
+        };
+
+        // الحصول على العناصر
+        const familyButton = document.getElementById('familyAppButton');
+        const staffButton = document.getElementById('staffAppButton');
+        const familyStatus = document.getElementById('familyAppStatus');
+        const staffStatus = document.getElementById('staffAppStatus');
+
+        // دالة تحديث حالة الأزرار
+        function updateApplicationStatus() {
+            if (!applicationsStatus.family) {
+                familyButton.classList.add('disabled');
+                familyButton.removeAttribute('href');
+                familyStatus.textContent = "ً قريباً ";
+            }
+
+            if (!applicationsStatus.staff) {
+                staffButton.classList.add('disabled');
+                staffButton.removeAttribute('href');
+                staffStatus.textContent = "قريباً";
+            }
+        }
+
+        // منع الانتقال المباشر إلى صفحات التقديم
+        document.addEventListener('DOMContentLoaded', function() {
+            updateApplicationStatus();
+        });
+    </script>
+
+
+</body></html>
